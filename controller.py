@@ -1,4 +1,4 @@
-import sys, random, subprocess, string
+import sys, subprocess, string
 # '.' is unseen open space
 # 'o' is seen open space
 # '#' is an obstacle
@@ -136,7 +136,7 @@ lines = f.readlines()
 N,M,C,E = [int(i) for i in lines[0].split()]
 map = lines[1:]
 for i in range(0,len(map)):
-   map[i] = list(map[i]);
+   map[i] = list(map[i].strip());
 for y in range(0,len(map)):
    for x in range(0,len(map[y])):      
       if(map[y][x]=='S'):
