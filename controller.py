@@ -104,8 +104,9 @@ def move(L,dir):
       L[0] += 1
       L[1] += 1
    else:
-      sys.stderr.write('Invalid move of '+str(L)+' in direction '+str(dir)+' onto # or off of the map\n')
-      quit()
+      if(dir!='5'):
+         sys.stderr.write('Invalid move of '+str(L)+' in direction '+str(dir)+' onto # or off of the map\n')
+         quit()
    
 def printmap():
    for i in map:   
