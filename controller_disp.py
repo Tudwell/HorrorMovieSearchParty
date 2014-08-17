@@ -163,11 +163,19 @@ def drawmap():
    for y in range(0,len(map)):
       for x in range(0,len(map[y])):
          if(map[y][x]=='#'):
-            pygame.draw.rect(window, (255, 160, 0), (x*4, y*4, x*4+4, y*4+4))
+            pygame.draw.rect(window, (255, 160, 0), (x*4, y*4, 4, 4))
          if(map[y][x]=='.'):
-            pygame.draw.rect(window, (0, 0, 0), (x*4, y*4, x*4+4, y*4+4))
+            pygame.draw.rect(window, (0, 0, 0), (x*4, y*4, 4, 4))
          if(map[y][x]=='o'):       
-            pygame.draw.rect(window, (0, 100, 50), (x*4, y*4, x*4+4, y*4+4))
+            pygame.draw.rect(window, (0, 100, 50), (x*4, y*4, 4, 4))
+   for L in extras:
+      if(L[0]!=-1):
+         pygame.draw.rect(window, (80, 0, 80), (L[0]*4, L[1]*4, 4, 4))
+   for L in costars:
+      if(L[0]!=-1):
+         pygame.draw.rect(window, (150, 0, 150), (L[0]*4, L[1]*4, 4, 4))
+   pygame.draw.rect(window, (255, 0, 255), (star[0]*4, star[1]*4, 4, 4))  
+   
    pygame.display.flip() 
 
 
