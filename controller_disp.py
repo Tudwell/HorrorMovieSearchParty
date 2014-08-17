@@ -12,6 +12,16 @@ def valid(i,j):
          return True
    return False
 
+def look(i,j):
+   for x in [i-2,i+2]:
+      for y in [j-1,j,j+1]:
+         if valid(x,y) and map[y][x]=='.':
+            map[y][x] = 'o'            
+   for x in [i-1,i,i+1]:
+      for y in range(j-2,j+3):
+         if valid(x,y) and map[y][x]=='.':
+            map[y][x] = 'o'   
+   
 def finished():
    for y in range(0,len(map)):
       for x in range(0,len(map[y])):      
@@ -38,16 +48,6 @@ def finished():
 #   
 def d2(i,j,i2,j2):
    return (i2-i)*(i2-i)+(j2-j)*(j2-j)
-
-def look(i,j):   
-   for x in [i-2,i+2]:
-      for y in [j-1,j,j+1]:
-         if valid(x,y) and map[y][x]=='.':
-            map[y][x] = 'o'
-   for x in [i-1,i,i+1]:
-      for y in range(j-2,j+3):
-         if valid(x,y) and map[y][x]=='.':
-            map[y][x] = 'o'
             
 def seenStar(i,j):
    if d2(i,j,star[0],star[1]) < 8:
@@ -147,6 +147,7 @@ for y in range(0,len(map)):
          Sx = x
          Sy = y
          map[y][x]='o'
+         
 look(Sx,Sy)
 costars = [[Sx,Sy] for i in range(C)]
 extras = [[Sx,Sy] for i in range(E)]
@@ -158,17 +159,35 @@ if finished():
 
 #create the screen
 SIZE = 4
-window = pygame.display.set_mode((SIZE*N, SIZE*M)) 
+window = pygame.display.set_mode((SIZE*N, SIZE*M))
 
-def drawmap():
+def initmap():
    for y in range(0,len(map)):
       for x in range(0,len(map[y])):
          if(map[y][x]=='#'):
             pygame.draw.rect(window, (255, 160, 0), (x*SIZE, y*SIZE, SIZE, SIZE))
          if(map[y][x]=='.'):
             pygame.draw.rect(window, (0, 0, 0), (x*SIZE, y*SIZE, SIZE, SIZE))
-         if(map[y][x]=='o'):       
-            pygame.draw.rect(window, (0, 100, 50), (x*SIZE, y*SIZE, SIZE, SIZE))
+
+def lookdraw(i,j):
+   for x in [i-2,i+2]:
+      for y in [j-1,j,j+1]:
+         if valid(x,y) and map[y][x]=='o':
+            pygame.draw.rect(window, (0, 150, 50), (x*SIZE, y*SIZE, SIZE, SIZE))
+   for x in [i-1,i,i+1]:
+      for y in range(j-2,j+3):
+         if valid(x,y) and map[y][x]=='o':
+            pygame.draw.rect(window, (0, 150, 50), (x*SIZE, y*SIZE, SIZE, SIZE))
+            
+            
+def drawmap():
+   for L in extras:
+      if(L[0]!=-1):
+         lookdraw(L[0],L[1])
+   for L in costars:
+      if(L[0]!=-1):
+         lookdraw(L[0],L[1])
+   lookdraw(star[0],star[1])
    for L in extras:
       if(L[0]!=-1):
          pygame.draw.rect(window, (80, 0, 80), (L[0]*SIZE, L[1]*SIZE, SIZE, SIZE))
@@ -179,7 +198,7 @@ def drawmap():
    
    pygame.display.flip() 
 
-
+initmap()
 while(True):
    for event in pygame.event.get(): 
       if event.type == pygame.QUIT: 
