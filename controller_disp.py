@@ -157,24 +157,25 @@ if finished():
    quit()
 
 #create the screen
-window = pygame.display.set_mode((4*N, 4*M)) 
+SIZE = 4
+window = pygame.display.set_mode((SIZE*N, SIZE*M)) 
 
 def drawmap():
    for y in range(0,len(map)):
       for x in range(0,len(map[y])):
          if(map[y][x]=='#'):
-            pygame.draw.rect(window, (255, 160, 0), (x*4, y*4, 4, 4))
+            pygame.draw.rect(window, (255, 160, 0), (x*SIZE, y*SIZE, SIZE, SIZE))
          if(map[y][x]=='.'):
-            pygame.draw.rect(window, (0, 0, 0), (x*4, y*4, 4, 4))
+            pygame.draw.rect(window, (0, 0, 0), (x*SIZE, y*SIZE, SIZE, SIZE))
          if(map[y][x]=='o'):       
-            pygame.draw.rect(window, (0, 100, 50), (x*4, y*4, 4, 4))
+            pygame.draw.rect(window, (0, 100, 50), (x*SIZE, y*SIZE, SIZE, SIZE))
    for L in extras:
       if(L[0]!=-1):
-         pygame.draw.rect(window, (80, 0, 80), (L[0]*4, L[1]*4, 4, 4))
+         pygame.draw.rect(window, (80, 0, 80), (L[0]*SIZE, L[1]*SIZE, SIZE, SIZE))
    for L in costars:
       if(L[0]!=-1):
-         pygame.draw.rect(window, (150, 0, 150), (L[0]*4, L[1]*4, 4, 4))
-   pygame.draw.rect(window, (255, 0, 255), (star[0]*4, star[1]*4, 4, 4))  
+         pygame.draw.rect(window, (150, 0, 150), (L[0]*SIZE, L[1]*SIZE, SIZE, SIZE))
+   pygame.draw.rect(window, (255, 0, 255), (star[0]*SIZE, star[1]*SIZE, SIZE, SIZE))  
    
    pygame.display.flip() 
 
@@ -219,6 +220,8 @@ while(True):
          look(L[0],L[1])
    kill()
    if finished():
+      drawmap()
+      raw_input('Press Enter to exit')
       quit()
    # Print the state of the board
    printstate()         
